@@ -30,3 +30,27 @@ class Hand_det_pythonClass:
         self.mp_hands = mp.solutions.hands
         self.cap = cv2.VideoCapture(0)
 ```
+
+###### Реализация сервера на python
+
+Сервер реализован на знакомых многим сокетах. В качестве ip адреса используется "_"localhost"_" с любым свободным портом.
+
+После подключения клиента создаётся объект экземпляр класса для распознавания объектов.
+
+```python
+detect = Hand_det_pythonClass()
+```
+
+После этого запускается бесконечный цикл, получающий новые координаты и отправляющий их клиенту для обработки.
+
+(В случае если координаты не найдены, клиенту отправляется фраза "_nothing_")
+
+```python
+while True:
+    coord = detect.get_coord()
+
+    if coord:
+        user.send(f"{ coord }".encode("utf-8"))
+    else:
+        user.send(f"nothing".encode("utf-8"))
+```
