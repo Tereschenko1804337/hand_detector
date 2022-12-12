@@ -16,8 +16,17 @@
 pip install mediapipe
 ```
 
-```python
-from rich.console import Console
+Для удобства передачи и взаимодействия, все координаты было принято округлять до 3 знаков после запятой и соединять в строки разделяя символом "\_". Каждая точка имеет 3 координаты по осям **X**, **Y** и **Z**.
 
-console = Console()
+![image](https://user-images.githubusercontent.com/80288959/207137797-6a228676-6494-4575-b0f5-1d6644d955fa.png)
+
+Работа **mediapipe** вынесена в отдельный класс для удобства. Конструктор инициализирует камеру и подключает расширение для отрисовки и обнаружения кистей рук.
+
+```python
+class Hand_det_pythonClass:
+
+    def __init__(self):
+        self.mp_drawing = mp.solutions.drawing_utils
+        self.mp_hands = mp.solutions.hands
+        self.cap = cv2.VideoCapture(0)
 ```
